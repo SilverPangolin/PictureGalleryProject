@@ -185,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Uploaded_Files\" />
+    <Folder Include="System\Web\Helpers\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

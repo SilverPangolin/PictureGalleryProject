@@ -31,6 +31,8 @@ namespace PictureGalleryProject.Models
         [StringLength(20)]
         public string LastName { get; set; }
 
+        
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PictureInfo> PictureInfoes { get; set; }
     }

@@ -20,6 +20,12 @@ namespace PictureGalleryProject.Controllers
             return View(db.Users.ToList());
         }
 
+        [HttpGet]
+        public ActionResult Login()
+        {
+
+        }
+
         // GET: Users/Details/5
         public ActionResult Details(int? id)
         {
