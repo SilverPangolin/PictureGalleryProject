@@ -21,10 +21,12 @@ namespace PictureGalleryProject.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
-        {
+        //public ActionResult Login()
+        //{
 
-        }
+
+            //this adiopgjadopigjadpogijadgpijadghpijasdghpiadjgh
+        //}
 
         // GET: Users/Details/5
         public ActionResult Details(int? id)
