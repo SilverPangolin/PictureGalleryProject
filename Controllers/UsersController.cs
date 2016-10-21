@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PictureGalleryProject.Models;
-using System.Web.Security;
 
 namespace PictureGalleryProject.Controllers
 {
@@ -22,61 +21,10 @@ namespace PictureGalleryProject.Controllers
         }
 
         [HttpGet]
-        public ActionResult LogIn()
+        public ActionResult Login()
         {
-            return View();
+
         }
-
-        //-----------------------------------------------------------------------------------------------------
-
-        [HttpPost]
-        public ActionResult LogIn(User userlogin)
-        {
-            //Checks if Username and password is valid
-            if (IsValid(userlogin.UserName, userlogin.Password))
-            {
-                FormsAuthentication.SetAuthCookie(userlogin.UserName, false);
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Login details are wrong.");
-            }
-            return View(userlogin);
-        }
-
-        private bool IsValid(string username, string password)
-        {
-            ////Installed SimpleCrypto for complex hashing algorithms such as PBKDF2 for quick and simple usage.
-            ////Installation method PowerShell (Tools -> NuGet Package Manager -> Package Manager Console -> Write: Install-Package SimpleCrypto -> OK -> Installed)
-            //var crypto = new SimpleCrypto.PBKDF2();
-            bool IsValid = false;
-
-            using (var db = new PictureGalleryModel())
-            {
-                var UserInput = from u in db.Users
-                                where username == UserName
-                                        select cust;
-
-                //var userinput = db.Users.FirstOrDefault(u => u.UserName == username);
-                //if (userinput != null)
-                {
-                    if (UserInput.Password == password)
-                    {
-                        IsValid = true;
-                    }
-                }
-            }
-            return IsValid;
-        }
-
-        public ActionResult LogOut()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
-        }
-
-        //-----------------------------------------------------------------------------------------------------
 
         // GET: Users/Details/5
         public ActionResult Details(int? id)
