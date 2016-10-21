@@ -17,6 +17,7 @@ namespace PictureGalleryProject.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<PictureInfo>()
                 .Property(e => e.PictureURI)
                 .IsFixedLength();
