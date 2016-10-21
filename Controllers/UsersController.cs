@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PictureGalleryProject.Models;
+using System.Web.Security;
 
 namespace PictureGalleryProject.Controllers
 {
@@ -20,14 +21,40 @@ namespace PictureGalleryProject.Controllers
             return View(db.Users.ToList());
         }
 
-        [HttpGet]
+
+        //--------------------------------------------------------------------
+
         public ActionResult Login()
         {
-
+            return View();
         }
 
-        // GET: Users/Details/5
-        public ActionResult Details(int? id)
+        [HttpPost]
+        public ActionResult Login(User login)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Error = "Form is not valid; please review and try again.";
+                return View("Login");
+            }
+
+            if (login.UserName == "user" && login.Password == "password")
+                FormsAuthentication.RedirectFromLoginPage(login.UserName, true);
+
+            ViewBag.Error = "Credentials invalid. Please try again.";
+            return View("Login");
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+    //--------------------------------------------------------------------
+    // GET: Users/Details/5
+    public ActionResult Details(int? id)
         {
             if (id == null)
             {
