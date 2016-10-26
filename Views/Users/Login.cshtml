@@ -4,5 +4,36 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
+<body>
+    <div style="margin:0 auto; text-align: center; border: 2px; border-style: solid; width:400px;">
+        @using (Html.BeginForm())
+        {
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.UserName)</td> @*Label to display username*@
+                    <td>@Html.TextBoxFor(m => m.UserName)</td> @*Textbox for user input*@
+
+                    <td>@Html.ValidationMessageFor(m => m.UserName)</td> @*Show validation error (if any) on form submission*@
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Password)</td> @*Label for pasword*@
+                    <td>@Html.PasswordFor(m => m.Password)</td> @*Password box for inputting password*@
+                    <td>@Html.ValidationMessageFor(m => m.Password)</td> @*Show validation errors(if any) on form submission*@
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Submit" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        @ViewBag.Message
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</body>
 

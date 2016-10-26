@@ -15,6 +15,7 @@ namespace PictureGalleryProject.Controllers
         private PictureGalleryModel db = new PictureGalleryModel();
 
         // GET: Users
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Users.ToList());
@@ -24,6 +25,7 @@ namespace PictureGalleryProject.Controllers
         UserApplication userApp = new UserApplication();
         SessionContext context = new SessionContext();
 
+        [HttpGet]
         public ActionResult Login()
         {
             return View();
@@ -91,6 +93,7 @@ namespace PictureGalleryProject.Controllers
         //------------------------LOGIN FUNCTION-----------------------------
 
         // GET: Users/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -129,6 +132,7 @@ namespace PictureGalleryProject.Controllers
         }
 
         // GET: Users/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -148,6 +152,7 @@ namespace PictureGalleryProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "Id,UserName,Password,FirstName,LastName")] User user)
         {
             if (ModelState.IsValid)
@@ -160,6 +165,7 @@ namespace PictureGalleryProject.Controllers
         }
 
         // GET: Users/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -177,6 +183,7 @@ namespace PictureGalleryProject.Controllers
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             User user = db.Users.Find(id);

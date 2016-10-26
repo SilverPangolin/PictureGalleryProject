@@ -17,15 +17,17 @@ namespace PictureGalleryProject.Models
 
         public int Id { get; set; }
 
-        [Required]
+        [Required (ErrorMessage = "Username is required")]
         [StringLength(10)]
+        [Display(Name = "Username")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required (ErrorMessage ="Password is required")]
         [StringLength(15)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Required]
+        [Required (ErrorMessage = "First name is required")]
         [StringLength(10)]
         public string FirstName { get; set; }
 

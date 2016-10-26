@@ -196,6 +196,8 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Home\Uppload.cshtml" />
+    <Content Include="Views\Users\Logout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -207,7 +209,6 @@
     <Folder Include="App_Data\Uploaded_Files\" />
     <Folder Include="System\Web\Helpers\" />
     <Folder Include="Views\LoginModel\" />
-    <Folder Include="Views\Login\" />
     <Folder Include="Views\Repository\" />
   </ItemGroup>
   <PropertyGroup>
