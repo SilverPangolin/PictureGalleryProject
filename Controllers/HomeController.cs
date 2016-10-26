@@ -13,5 +13,11 @@ namespace PictureGalleryProject.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public ActionResult Uppload()
+        {
+            return View();
+        } 
     }
 }

@@ -5,6 +5,7 @@ namespace PictureGalleryProject.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     public partial class User
     {
@@ -35,5 +36,23 @@ namespace PictureGalleryProject.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PictureInfo> PictureInfoes { get; set; }
+    }
+
+    public class UserRepository
+    {
+        PictureGalleryModel context = new PictureGalleryModel();
+        public User GetByUsernameAndPassword(User user)
+        {
+            return context.Users.Where(u => u.UserName == user.UserName & u.Password == user.Password).FirstOrDefault();
+        }
+    }
+
+    public class UserApplication
+    {
+        UserRepository userRepo = new UserRepository();
+        public User GetByUsernameAndPassword(User user)
+        {
+            return userRepo.GetByUsernameAndPassword(user);
+        }
     }
 }
