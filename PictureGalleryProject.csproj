@@ -159,12 +159,14 @@
     <Content Include="scripts\bootstrap.min.js" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
+    <Content Include="scripts\jquery-1.11.1.min.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -198,6 +200,9 @@
     <Content Include="Views\Home\Uppload.cshtml" />
     <Content Include="Views\Users\Logout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Files\Upload.cshtml" />
+    <Content Include="Views\Files\Downloads.cshtml" />
+    <Content Include="Views\Files\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -208,8 +213,6 @@
   <ItemGroup>
     <Folder Include="App_Data\Uploaded_Files\" />
     <Folder Include="System\Web\Helpers\" />
-    <Folder Include="Views\LoginModel\" />
-    <Folder Include="Views\Repository\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

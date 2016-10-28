@@ -17,12 +17,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("File thingy", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("File Portal Inc", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Upload File", "Uppload", "Home")</li>
+                    <li>@Html.ActionLink("Upload File", "Index", "Files")</li>
+                    <li>@Html.ActionLink("Download Files","Downloads","Files")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -52,7 +53,9 @@
         </footer>
     </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+
 </body>
 </html>
