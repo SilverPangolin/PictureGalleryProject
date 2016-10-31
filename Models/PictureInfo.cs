@@ -12,7 +12,7 @@ namespace PictureGalleryProject.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(150)]
+        [StringLength(50)]
         public string PictureURI { get; set; }
 
         public int UserID { get; set; }
