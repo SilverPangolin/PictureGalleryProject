@@ -11,8 +11,8 @@ namespace PictureGalleryProject.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(50)]
+        [Required(ErrorMessage = "Filename is to long!")]
+        [StringLength(150)]
         public string PictureURI { get; set; }
 
         public int UserID { get; set; }

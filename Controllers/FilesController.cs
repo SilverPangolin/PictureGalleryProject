@@ -1,6 +1,7 @@
 ﻿using PictureGalleryProject.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,7 @@ namespace PictureGalleryProject.Controllers
 {
     public class FilesController : Controller
     {
+        //New PictureGalleryModel to be able to add to the DB
         private PictureGalleryModel db = new PictureGalleryModel();
         // GET: Files
         // Whenever the application loads, the action result will be fired
@@ -48,6 +50,7 @@ namespace PictureGalleryProject.Controllers
                         NewFile.PictureURI = FileURL;
                         db.PictureInfoes.Add(NewFile);
                         db.SaveChanges();
+                        
                     }
                 }
             }
