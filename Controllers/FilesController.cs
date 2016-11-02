@@ -58,7 +58,8 @@ namespace PictureGalleryProject.Controllers
             // Looping through all of the files 
             // Shows all the files
             var dir = new DirectoryInfo(Server.MapPath("~/App_Data/Uploaded_Files/"));
-            FileInfo[] fileNames = dir.GetFiles("*.*"); List<string> items = new List<string>();
+            FileInfo[] fileNames = dir.GetFiles("*.*");//dir.GetFiles("*.*");
+            List<string> items = new List<string>();
             foreach (var file in fileNames)
             {
                 items.Add(file.Name);

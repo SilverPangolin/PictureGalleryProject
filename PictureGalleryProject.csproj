@@ -153,7 +153,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="FileService.svc" />
+    <Content Include="FileAndUserService.svc" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.19-build00125.js" />
@@ -172,13 +172,13 @@
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="FileService.svc.cs">
-      <DependentUpon>FileService.svc</DependentUpon>
+    <Compile Include="FileAndUserService.svc.cs">
+      <DependentUpon>FileAndUserService.svc</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="IFileService.cs" />
+    <Compile Include="IFileAndUserService.cs" />
     <Compile Include="Models\PictureGalleryModel.cs" />
     <Compile Include="Models\PictureInfo.cs" />
     <Compile Include="Models\User.cs" />
