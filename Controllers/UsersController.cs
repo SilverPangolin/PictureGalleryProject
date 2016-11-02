@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -8,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using PictureGalleryProject.Models;
 using System.Web.Security;
+using System.Web.Script.Serialization;
 
 namespace PictureGalleryProject.Controllers
 {
@@ -16,45 +15,86 @@ namespace PictureGalleryProject.Controllers
         private PictureGalleryModel db = new PictureGalleryModel();
 
         // GET: Users
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Users.ToList());
         }
 
+        //------------------------LOGIN FUNCTION-----------------------------
+        UserApplication userApp = new UserApplication();
+        SessionContext context = new SessionContext();
 
-        //--------------------------------------------------------------------
-
+        [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(User login)
+        public ActionResult Login(User user)
         {
-            if (!ModelState.IsValid)
+            var authenticatedUser = userApp.GetByUsernameAndPassword(user);
+            if (authenticatedUser != null)
             {
-                ViewBag.Error = "Form is not valid; please review and try again.";
-                return View("Login");
+                context.SetAuthenticationToken(authenticatedUser.Id.ToString(), false, authenticatedUser);
+                return RedirectToAction("Uppload", "Home");
             }
 
-            if (login.UserName == "user" && login.Password == "password")
-                FormsAuthentication.RedirectFromLoginPage(login.UserName, true);
-
-            ViewBag.Error = "Credentials invalid. Please try again.";
-            return View("Login");
+            return View();
         }
 
         public ActionResult Logout()
         {
-            Session.Clear();
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
-    //--------------------------------------------------------------------
-    // GET: Users/Details/5
-    public ActionResult Details(int? id)
+        public class SessionContext
+        {
+            public void SetAuthenticationToken(string name, bool isPersistant, User userData)
+            {
+                string data = null;
+                if (userData != null)
+                    data = new JavaScriptSerializer().Serialize(userData);
+
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, name, DateTime.Now, DateTime.Now.AddYears(1), isPersistant, userData.Id.ToString());
+
+                string cookieData = FormsAuthentication.Encrypt(ticket);
+                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, cookieData)
+                {
+                    HttpOnly = true,
+                    Expires = ticket.Expiration
+                };
+                System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+
+            public User GetUserData()
+            {
+                User userData = null;
+
+                try
+                {
+                    HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+                    if (cookie != null)
+                    {
+                        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value);
+
+                        userData = new JavaScriptSerializer().Deserialize(ticket.UserData, typeof(User)) as User;
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+
+                return userData;
+            }
+        }
+        //------------------------LOGIN FUNCTION-----------------------------
+
+        // GET: Users/Details/5
+        [Authorize]
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -92,6 +132,7 @@ namespace PictureGalleryProject.Controllers
         }
 
         // GET: Users/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -111,6 +152,7 @@ namespace PictureGalleryProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "Id,UserName,Password,FirstName,LastName")] User user)
         {
             if (ModelState.IsValid)
@@ -123,6 +165,7 @@ namespace PictureGalleryProject.Controllers
         }
 
         // GET: Users/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -140,6 +183,7 @@ namespace PictureGalleryProject.Controllers
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             User user = db.Users.Find(id);
