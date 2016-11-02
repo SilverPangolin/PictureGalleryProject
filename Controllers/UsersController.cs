@@ -12,16 +12,13 @@ namespace PictureGalleryProject.Controllers
 {
     public class UsersController : Controller
     {
-        //private PictureGalleryModel db = new PictureGalleryModel();
+        private PictureGalleryModel db = new PictureGalleryModel();
 
         // GET: Users
         [Authorize]
         public ActionResult Index()
         {
-            using (var db = new PictureGalleryModel())
-            {
-                return View(db.Users.ToList());
-            }
+            return View(db.Users.ToList());
         }
 
         //------------------------LOGIN FUNCTION-----------------------------
@@ -57,10 +54,8 @@ namespace PictureGalleryProject.Controllers
         {
             public void SetAuthenticationToken(string name, bool isPersistant, User userData)
             {
-                using (var context = new PictureGalleryModel())
-                {
-                    string data = null;
-                    if (userData != null)
+                string data = null;
+                if (userData != null)
                     data = new JavaScriptSerializer().Serialize(userData);
 
                 FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, name, DateTime.Now, DateTime.Now.AddYears(1), isPersistant, userData.Id.ToString());
@@ -72,7 +67,6 @@ namespace PictureGalleryProject.Controllers
                     Expires = ticket.Expiration
                 };
                 System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
-                }
             }
 
             public User GetUserData()
@@ -102,18 +96,16 @@ namespace PictureGalleryProject.Controllers
         [Authorize]
         public ActionResult Details(int? id)
         {
-            using (var db = new PictureGalleryModel()) {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                User user = db.Users.Find(id);
-                if (user == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(user);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
 
         // GET: Users/Create
@@ -129,34 +121,30 @@ namespace PictureGalleryProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,UserName,Password,FirstName,LastName")] User user)
         {
-            using (var db = new PictureGalleryModel()) {
-                if (ModelState.IsValid)
-                {
-                    db.Users.Add(user);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-
-                return View(user);
+            if (ModelState.IsValid)
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
+
+            return View(user);
         }
 
         // GET: Users/Edit/5
         [Authorize]
         public ActionResult Edit(int? id)
         {
-            using (var db = new PictureGalleryModel()) {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                User user = db.Users.Find(id);
-                if (user == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(user);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
 
         // POST: Users/Edit/5
@@ -167,35 +155,29 @@ namespace PictureGalleryProject.Controllers
         [Authorize]
         public ActionResult Edit([Bind(Include = "Id,UserName,Password,FirstName,LastName")] User user)
         {
-            using (var db = new PictureGalleryModel())
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    db.Entry(user).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                return View(user);
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
+            return View(user);
         }
 
         // GET: Users/Delete/5
         [Authorize]
         public ActionResult Delete(int? id)
         {
-            using (var db = new PictureGalleryModel())
+            if (id == null)
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                User user = db.Users.Find(id);
-                if (user == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(user);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
 
         // POST: Users/Delete/5
@@ -204,25 +186,19 @@ namespace PictureGalleryProject.Controllers
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
-            using (var db = new PictureGalleryModel())
-            {
-                User user = db.Users.Find(id);
-                db.Users.Remove(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            using (var db = new PictureGalleryModel())
+            if (disposing)
             {
-                if (disposing)
-                {
-                    db.Dispose();
-                }
-                base.Dispose(disposing);
+                db.Dispose();
             }
+            base.Dispose(disposing);
         }
     }
 }

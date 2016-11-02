@@ -10,14 +10,10 @@ namespace PictureGalleryProject.Models
         public PictureGalleryModel()
             : base("name=PictureGalleryModel")
         {
-            //En cirkelreferens upptäcktes vid serialisering av ett objekt av typen System.Data.Entity.DynamicProxies.User_6DA8C234C12E33806229D551FC81CA2ED529C82885402F4B3D7F8EC8EEDF2E8A.
-            //Had to turn of the dynamic proxies so it's always the same instead of the random number after           user_*NUMBERS*
-            Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<PictureInfo> PictureInfoes { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        //public virtual DbSet<LoginModel> LoginModel { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
