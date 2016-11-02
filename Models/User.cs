@@ -6,7 +6,9 @@ namespace PictureGalleryProject.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
     using System.Linq;
+    using System.Runtime.Serialization;
 
+    [DataContract(IsReference = true)]
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

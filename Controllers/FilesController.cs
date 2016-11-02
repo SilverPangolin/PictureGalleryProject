@@ -25,8 +25,7 @@ namespace PictureGalleryProject.Controllers
                 {
                     //Does another check to see if the user is logged in
                     //If logged in -> upload file -> Get UserId -> Get filepath -> Save logged in UserID and uploaded file's path to database
-                    if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-                    {
+
                         //Uploading file to App_Data/Uploaded_Files
                         string path = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/Uploaded_Files/";
                         string filename = Path.GetFileName(Request.Files[upload].FileName);
@@ -48,9 +47,8 @@ namespace PictureGalleryProject.Controllers
                         NewFile.PictureURI = FileURL;
                         db.PictureInfoes.Add(NewFile);
                         db.SaveChanges();
-                    }
                 }
-            }
+                }
             return View("Upload");
         }
         [Authorize]
