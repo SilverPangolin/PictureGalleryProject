@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="PictureGalleryProject.FileAndUserService" CodeBehind="FileAndUserService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="PictureGalleryProject.FileService" CodeBehind="FileAndUserService.svc.cs" %>
