@@ -9,15 +9,15 @@ namespace PictureGalleryProject
     // NOTE: In order to launch WCF Test Client for testing this service, please select FileService.svc or FileService.svc.cs at the Solution Explorer and start debugging.
     public class FileService : IFileAndUserService
     {
-        public FileInfo[] GetFileInfo()
+        public ServiceFileInfo[] GetFileInfo()
         {
-            List<FileInfo> returnFiles = new List<FileInfo>();
+            List<ServiceFileInfo> returnFiles = new List<ServiceFileInfo>();
             using (PictureGalleryModel db = new PictureGalleryModel())
             {
                 var dbFilesList = db.PictureInfoes.ToList();
                 foreach (var dbrow in dbFilesList)
                 {
-                    FileInfo NewFile = new FileInfo();
+                    ServiceFileInfo NewFile = new ServiceFileInfo();
                     NewFile.Id = dbrow.Id;
                     NewFile.FileURL = dbrow.PictureURI;
                     NewFile.UserID = dbrow.UserID;
@@ -27,15 +27,15 @@ namespace PictureGalleryProject
             return returnFiles.ToArray();
         }
 
-        public UserInfo[] GetUserInfo()
+        public ServiceUserInfo[] GetUserInfo()
         {
-            List<UserInfo> returnUsers = new List<UserInfo>();
+            List<ServiceUserInfo> returnUsers = new List<ServiceUserInfo>();
             using (PictureGalleryModel db = new PictureGalleryModel())
             {
                 var dbUsersList = db.Users.ToList();
                 foreach (var dbrow in dbUsersList)
                 {
-                    UserInfo NewUser = new UserInfo();
+                    ServiceUserInfo NewUser = new ServiceUserInfo();
                     NewUser.Id = dbrow.Id;
                     NewUser.UserName = dbrow.UserName;
                     NewUser.Password = dbrow.Password;
@@ -47,7 +47,7 @@ namespace PictureGalleryProject
             return returnUsers.ToArray();
         }
 
-        public void SaveUser(UserInfo user)
+        public void SaveUser(ServiceUserInfo user)
         {
             using (PictureGalleryModel db = new PictureGalleryModel())
             {

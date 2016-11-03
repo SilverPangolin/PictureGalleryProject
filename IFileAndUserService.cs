@@ -12,14 +12,14 @@ namespace PictureGalleryProject
     public interface IFileAndUserService
     {
         [OperationContract]
-        UserInfo[] GetUserInfo();
+        ServiceUserInfo[] GetUserInfo();
 
         [OperationContract]
-        FileInfo[] GetFileInfo();
+        ServiceFileInfo[] GetFileInfo();
     };
 
     [DataContract]
-    public class UserInfo
+    public class ServiceUserInfo
     {
         [DataMember]
         public int Id { get; set; }
@@ -38,7 +38,7 @@ namespace PictureGalleryProject
     }
 
     [DataContract]
-    public class FileInfo
+    public class ServiceFileInfo
     {
         [DataMember]
         public int Id { get; set; }
