@@ -16,6 +16,9 @@ namespace PictureGalleryProject
 
         [OperationContract]
         ServiceFileInfo[] GetFileInfo();
+
+        [OperationContract]
+        void SaveUser(ServiceUserInfo user);
     };
 
     [DataContract]
