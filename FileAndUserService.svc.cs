@@ -60,5 +60,35 @@ namespace PictureGalleryProject
                 db.SaveChanges();
             }
         }
+
+        public void UpdateUser(ServiceUserInfo user)
+        {
+            using (PictureGalleryModel db = new PictureGalleryModel())
+            {
+                
+            }
+        } //Probably won't use this so havn't coded the function yet.
+
+        public void RemoveUser(ServiceUserInfo user)
+        {
+            using (PictureGalleryModel db = new PictureGalleryModel())
+            {
+                User TempUserID = new User();
+                TempUserID = db.Users.Find(user);
+                db.Users.Remove(TempUserID);
+                db.SaveChanges();
+            }
+        }
+
+        public void RemoveFile(ServiceFileInfo file)
+        {
+            using (PictureGalleryModel db = new PictureGalleryModel())
+            {
+                PictureInfo PictureID = new PictureInfo();
+                PictureID = db.PictureInfoes.Find(file);
+                db.PictureInfoes.Remove(PictureID);
+                db.SaveChanges();
+            }
+        }
     }
 }

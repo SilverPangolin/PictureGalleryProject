@@ -19,6 +19,16 @@ namespace PictureGalleryProject
 
         [OperationContract]
         void SaveUser(ServiceUserInfo user);
+
+        [OperationContract]
+        void UpdateUser(ServiceUserInfo user);
+
+        [OperationContract]
+        void RemoveUser(ServiceUserInfo user);
+
+        [OperationContract]
+        void RemoveFile(ServiceFileInfo file);
+
     };
 
     [DataContract]
