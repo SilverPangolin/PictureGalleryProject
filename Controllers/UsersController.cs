@@ -73,6 +73,7 @@ namespace PictureGalleryProject.Controllers
             {
                 User userData = null;
 
+                //Small error handling so the system doesn't crash
                 try
                 {
                     HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
@@ -85,6 +86,7 @@ namespace PictureGalleryProject.Controllers
                 }
                 catch (Exception ex)
                 {
+                    //Does nothing with the exeption if it occurs.
                 }
 
                 return userData;

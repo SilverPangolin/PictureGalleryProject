@@ -24,10 +24,10 @@ namespace PictureGalleryProject
         void UpdateUser(ServiceUserInfo user);
 
         [OperationContract]
-        void RemoveUser(ServiceUserInfo user);
+        void RemoveUser(int removeUser);
 
         [OperationContract]
-        void RemoveFile(ServiceFileInfo file);
+        void RemoveFile(int removeFile);
 
     };
 

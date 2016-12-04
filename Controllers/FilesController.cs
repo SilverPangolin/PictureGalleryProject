@@ -27,22 +27,27 @@ namespace PictureGalleryProject.Controllers
                     //If logged in -> upload file -> Get UserId -> Get filepath -> Save logged in UserID and uploaded file's path to database
                     if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                     {
-                        //Uploading file to App_Data/Uploaded_Files
+                        //Saving the location the file will be saved on as path(/App_Data/Uploaded_Files/)
                         string path = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/Uploaded_Files/";
+                        
+                        //Fetching the filename's name from the file that is being uploaded and saves it as string filename
                         string filename = Path.GetFileName(Request.Files[upload].FileName);
+
+                        //Combining the path and filename to save the file to a specific map (/App_Data/Uploaded_Files/) and then the name of the file that is being saved in filename.
                         Request.Files[upload].SaveAs(Path.Combine(path, filename));
 
                         //Getting Logged in users UserID.
                         var id = System.Web.HttpContext.Current.User.Identity.Name;
-                        var intID = Int32.Parse(id); //Parse it to be able to add it into the database, This will always be a number
+                        var intID = Int32.Parse(id); //Parse it to be able to add it into the database, This will always be a number so a try / catch is not needed (It's set as a numerical value in the database itself)
 
-                        //Getting filepath
+                        //Using the filename that has been fetched from the file that has been uploaded.
+                        //And saves it as a complete path to file in the string FileURL
                         string fl = path.Substring(path.LastIndexOf("\\"));
                         string[] split = fl.Split('\\');
                         string newpath = split[1];
                         string FileURL = newpath + filename;
 
-                        //Save UserID and Path to database
+                        //Save UserID and FileURL to database
                         PictureInfo NewFile = new PictureInfo();
                         NewFile.UserID = intID;
                         NewFile.PictureURI = FileURL;
@@ -60,7 +65,10 @@ namespace PictureGalleryProject.Controllers
             // Looping through all of the files 
             // Shows all the files
             var dir = new DirectoryInfo(Server.MapPath("~/App_Data/Uploaded_Files/"));
-            FileInfo[] fileNames = dir.GetFiles("*.*");//dir.GetFiles("*.*");
+
+            //This loops through the current map of files and then gets the names of the current files
+            //Each file in the current map will get it's own unique link. This is to make sure you are able to download every file in the current map.
+            FileInfo[] fileNames = dir.GetFiles("*.*");
             List<string> items = new List<string>();
             foreach (var file in fileNames)
             {
@@ -72,6 +80,8 @@ namespace PictureGalleryProject.Controllers
         public FileResult Download(string ImageName)
         {
             var FileVirtualPath = "~/App_Data/Uploaded_Files/" + ImageName;
+
+            //The actuall link to each file in the map is being made here as a return value when you klick on a file to download.
             return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
         }
 

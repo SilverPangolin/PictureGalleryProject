@@ -1,6 +1,7 @@
 ﻿using PictureGalleryProject.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace PictureGalleryProject
@@ -69,25 +70,34 @@ namespace PictureGalleryProject
             }
         } //Probably won't use this so havn't coded the function yet.
 
-        public void RemoveUser(ServiceUserInfo user)
+        public void RemoveUser(int removeUser)
         {
             using (PictureGalleryModel db = new PictureGalleryModel())
             {
                 User TempUserID = new User();
-                TempUserID = db.Users.Find(user);
+                TempUserID = db.Users.Find(removeUser);
                 db.Users.Remove(TempUserID);
                 db.SaveChanges();
             }
         }
 
-        public void RemoveFile(ServiceFileInfo file)
+        public void RemoveFile(int removeFile)
         {
             using (PictureGalleryModel db = new PictureGalleryModel())
             {
                 PictureInfo PictureID = new PictureInfo();
-                PictureID = db.PictureInfoes.Find(file);
+                PictureID = db.PictureInfoes.Find(removeFile);
                 db.PictureInfoes.Remove(PictureID);
                 db.SaveChanges();
+
+                //Delete the file from the folder
+
+                //var file_name = from delurl in db.PictureInfoes
+                //                where delurl.PictureURI == PictureID.PictureURI
+                //                select delurl;
+                //string path = Server.MapPath("/App_Data/Uploaded_Files/" + file_name);
+                //FileInfo file = new FileInfo(path);
+                //file.Delete();
             }
         }
     }
